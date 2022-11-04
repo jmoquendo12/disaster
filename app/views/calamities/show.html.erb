@@ -1,0 +1,37 @@
+<%= current_user.email %><style>
+    body{
+        background: #31d2f2;
+    }
+
+</style>
+<h1>show post id: <%= @calamity.id %></h1>
+<table class="table">
+
+  <thead>
+  <td>Id</td>
+  <td>Title</td>
+  <td>Content</td>
+  <td>Comment</td>
+  <td>Action</td>
+  </thead>
+
+  <tr>
+    <td><%= @calamity.id %></td>
+    <td><%= @calamity.title %></td>
+    <td><%= @calamity.content %></td>
+    <td>
+      <% @calamity.comments.each do |comment| %>
+        <ul>
+          <%= comment.content %>
+          <%= link_to 'Edit', edit_calamity_comment_path(@calamity, comment) %></ul>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to 'Add Comment', new_calamity_comment_path(@calamity) %>
+      <%= button_to 'Delete Comment', calamity_comments_path(@calamity), method: :delete %></td>
+
+  </tr>
+  <br>
+</table>
+<%= link_to 'Home', calamities_path %>
+
