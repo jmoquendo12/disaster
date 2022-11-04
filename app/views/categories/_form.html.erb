@@ -1,0 +1,7 @@
+
+
+<%= form_with model: categories, url: categories_path, data: { turbo: false } do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <%= form.submit %>
+<% end %>
