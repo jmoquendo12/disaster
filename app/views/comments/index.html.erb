@@ -1,0 +1,12 @@
+
+<h1>Title<%= @calamity.content%></h1>
+<h2>Comments</h2>
+
+<% @calamity.comments.each do |f|%>
+  <ul>
+    <%= f.content %>
+  </ul>
+<% end %>
+
+<%#= link_to 'Show', calamity_comment_path(@calamity)%>
+
