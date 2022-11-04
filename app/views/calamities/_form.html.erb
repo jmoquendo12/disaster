@@ -1,0 +1,26 @@
+<header><%= current_user.email %></header>
+<%= form_with model: @calamity do |form| %>
+  <% if @calamity.errors.any? %>
+    <ul>
+      <% @calamity.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+  <div>
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+  <div>
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  </div>
+  <%= form.submit %>
+<% end %>
