@@ -1,0 +1,43 @@
+<style>
+    td {
+        padding: 10px;
+        margin: 20px;
+        color: #f4f4f4;
+    }
+
+    table {
+        border: 1px solid gray;
+    }
+    td tr{
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid gray;
+    }
+</style>
+<h1>Post List </h1>
+<table class="table">
+  <thead>
+  <td>Id</td>
+  <td>Title</td>
+  <td>Address</td>
+  <td>Content</td>
+  <td>Categories</td>
+  <td>User</td>
+  <td>Action</td>
+  </thead>
+  <% @calamities.each do |calamity| %>
+    <tr>
+      <td><%= calamity.id %></td>
+      <td><%= calamity.title %></td>
+      <td><%= calamity.address %></td>
+      <td><%= calamity.content %></td>
+      <td><%= calamity.categories.pluck(:name).join(',') %></td>
+      <td><%= calamity.user.email %></td>
+      <td><%= link_to 'Edit', edit_calamity_path(calamity) if calamity.user == current_user %>
+        <%= link_to 'Show', calamity_path(calamity) %>
+        <%= button_to 'Delete', calamity_path(calamity), method: :delete if calamity.user == current_user %></td>
+  <% end %>
+  </tr>
+</table>
+
+<%= link_to 'New', new_calamity_path %>
