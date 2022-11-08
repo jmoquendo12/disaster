@@ -1,15 +1,5 @@
-<%= current_user.email %><h1>New Post</h1>
-<style>
-  .form{
-      padding: 10px;
-      margin: 10px;
-  }
-
-  .form-1{
-      padding: 10px;
-      margin: 10px;
-  }
-</style>
+<header style="float: left"><%= link_to "Home Page", calamities_path, class:"btn btn-secondary" %></header>
+<h1>New Post</h1>
 <% if @calamity.errors.any? %>
   <ul>
     <% @calamity.errors.each do |error| %>
@@ -19,7 +9,7 @@
 <% end %>
 <%= form_with model: @calamity do |form| %>
 
-  <div class="container">
+  <div class="w3-container w3-center">
     <div class="form">
       <%= form.label :title %>
       <%= form.text_field :title %>
@@ -36,10 +26,10 @@
       <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
     </div>
     <div class="btn-light">
-      <%= form.submit 'Save'%>
+      <%= form.submit 'Save', class:"btn btn-primary"%>
     </div>
-    <%= link_to "Add Categories", categories_path %>
+    <%= link_to "Add Categories", categories_path, class:"btn btn-primary" %>
 
-  </div>
+
 <% end %>
-<%= link_to "Home Page", calamities_path %>
+</div>
