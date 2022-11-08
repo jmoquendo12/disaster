@@ -1,11 +1,14 @@
 class CalamitiesController < ApplicationController
 
-  # before_action :authenticate_user!
-  before_action only: [:new, :create, :show, :edit, :update, :destroy, :show]
+  before_action :authenticate_user!, except: [:index, :show]
+  # before_action :set_categories, [:index, :edit, :update, :create]
+  before_action :set_calamity, only: [:show, :update, :edit, :destroy]
 
+  # before_action only: [:new, :create, :show, :destroy, :edit, :update]
+  # before_action :set_categories, only: :update
 
   def index
-    @calamities = Calamity.includes(:categories, :user)
+    @calamities = Calamity.includes(:categories, :user).all
   end
 
   def new
@@ -15,6 +18,7 @@ class CalamitiesController < ApplicationController
   def show
     @calamity = Calamity.find(params[:id])
   end
+
   def create
     @calamity = Calamity.new(params[:calamity].permit(:title, :content, :address, category_ids: []))
     @calamity.user = current_user
@@ -25,13 +29,11 @@ class CalamitiesController < ApplicationController
     end
   end
 
-  def edit
-    @calamity = Calamity.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @calamity = Calamity.find(params[:id])
-    if @calamity.update(params[:calamity].permit(:title, :content, :address))
+    @calamity.user = current_user
+    if @calamity.update(set_categories)
       redirect_to calamities_path
     else
       render :edit
@@ -44,10 +46,19 @@ class CalamitiesController < ApplicationController
     redirect_to calamities_path
   end
 
-  def validate_post_owner
-    unless @calamity.user == current_user
-      flash[:notice] = 'the post not belongs to you'
-      redirect_to calamities_path
-    end
+  # def validate_post_owner
+  #   unless @calamity.user == current_user
+  #     flash[:notice] = 'the post not belongs to you'
+  #     redirect_to calamities_path
+  #   end
+  # end
+
+  def set_categories
+    params.require(:calamity).permit(:title, :content, :address, category_ids: [])
   end
+
+  def set_calamity
+    @calamity = Calamity.find(params[:id])
+  end
+
 end
