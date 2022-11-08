@@ -8,7 +8,7 @@ class CalamitiesController < ApplicationController
   # before_action :set_categories, only: :update
 
   def index
-    @calamities = Calamity.includes(:categories, :user).all
+    @calamities = Calamity.includes(:categories, :user).page(params[:page]).per(5)
   end
 
   def new

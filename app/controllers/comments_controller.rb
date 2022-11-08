@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
 
   def index
-    @comments = Calamity.includes(:user).all
+    @comments = Calamity.includes(:user).page(params[:page]).per(5)
   end
 
   def new
@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
   def edit; end
 
   def update
- 
+
     if @comment.update(content: params[:comment][:content])
       redirect_to calamity_path(@calamity)
     else
