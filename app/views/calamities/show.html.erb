@@ -1,37 +1,29 @@
-<%= current_user.email %><style>
-    body{
-        background: #31d2f2;
-    }
+<%= current_user.email %>
 
-</style>
 <h1>show post id: <%= @calamity.id %></h1>
-<table class="table">
-
+<table class="table table-bordered">
   <thead>
   <td>Id</td>
   <td>Title</td>
   <td>Content</td>
   <td>Comment</td>
-  <td>Action</td>
   </thead>
-
   <tr>
     <td><%= @calamity.id %></td>
     <td><%= @calamity.title %></td>
     <td><%= @calamity.content %></td>
     <td>
       <% @calamity.comments.each do |comment| %>
-        <ul>
+        <ul style="display: flex">
           <%= comment.content %>
-          <%= link_to 'Edit', edit_calamity_comment_path(@calamity, comment) %></ul>
+          <%= link_to 'Edit', edit_calamity_comment_path(@calamity, comment), class: "btn btn-secondary" %>
+        <%= button_to 'Delete', calamity_path(@calamity), method: :delete, class: "btn btn-danger" %></ul>
       <% end %>
     </td>
-    <td>
-      <%= link_to 'Add Comment', new_calamity_comment_path(@calamity) %>
-      <%= button_to 'Delete Comment', calamity_comments_path(@calamity), method: :delete %></td>
-
   </tr>
   <br>
 </table>
-<%= link_to 'Home', calamities_path %>
+<%= link_to 'Home', calamities_path, class:"btn btn-primary bi bi-arrow-return-left"%>
+<%= link_to 'Add Comment', new_calamity_comment_path(@calamity), class: "btn btn-warning" %>
+
 
