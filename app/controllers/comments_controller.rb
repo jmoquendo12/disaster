@@ -23,23 +23,22 @@ class CommentsController < ApplicationController
   def edit; end
 
   def update
-
     if @comment.update(content: params[:comment][:content])
-      redirect_to calamity_path(@calamity)
+      redirect_to calamities_path(@calamity)
     else
       render :edit
     end
   end
 
   def destroy
-    @comment = @calamity.comments.destroy(params[:calamity_id].permit[:comment])
-    redirect_to calamities_path
+    @comment.destroy
+    redirect_to calamity_path(params[:calamity_id])
   end
 
   private
 
   def set_comment
-    @comment = Comment.find(params[:id])
+    @comment = @calamity.comments.find(params[:id])
   end
 
   def set_post
