@@ -1,60 +1,39 @@
-<%= current_user.email %>
-<style>
+<!--<body class="text-hide" style="background-image: url('../images/disaster.jpeg'); width: 50px; height: 50px; ">-->
 
-    table {
-        border: 1px solid gray;
-    }
 
-    td tr:nth-child(even) {
-        margin: 10px;
-        padding: 10px;
-        border: 1px solid gray;
-        background-color: #5c636a;
-    }
-    .container{
-
-    }
-    body{
-        background: #ffffff;
-    }
-    td tr:nth-last-child(even){
-        background: #31d2f2;
-    }
-    body {
-        background-repeat: no-repeat;
-        background-position: center center;
-        font-family: 'Source Sans Pro', sans-serif;
-        padding: 1px;
-    }
-
-</style>
-<body>
 <h1>Post List </h1>
-<table class="table">
-  <thead>
+
+<table class="table table-striped table-bordered">
+
+  <thead style="background: #badbcc; font-weight: bold; text-align: center">
   <td>Id</td>
   <td>Title</td>
   <td>Address</td>
   <td>Content</td>
   <td>Categories</td>
+  <td>Comments Count</td>
+  <td>IP Address</td>
   <td>User</td>
   <td>Action</td>
   </thead>
   <% @calamities.each do |calamity| %>
-    <div class="container"></div>
-    <tr>
-      <td><%= calamity.id %></td>
-      <td><%= calamity.title %></td>
-      <td><%= calamity.address %></td>
-      <td><%= calamity.content %></td>
-      <td><%= calamity.categories.pluck(:name).join(',') %></td>
-      <td><%= calamity.user.email %></td>
-      <td><%= link_to 'Edit', edit_calamity_path(calamity) if calamity.user == current_user %>
-        <%= link_to 'Show', calamity_path(calamity) %>
-        <%= button_to 'Delete', calamity_path(calamity), method: :delete if calamity.user == current_user %></td>
+    <div class="w3-container w3-teal ">
+      <tr>
+        <td><%= calamity.id %></td>
+        <td><%= calamity.title %></td>
+        <td><%= calamity.address %></td>
+        <td><%= calamity.content %></td>
+        <td><%= calamity.categories.pluck(:name).join(',') %></td>
+        <td><%= calamity.comments_count  %></td>
+        <td><%= calamity.user.current_sign_in_ip %></td>
+        <td><%= calamity.user.email %></td>
+        <td style="display: flex"><%= link_to 'Edit', edit_calamity_path(calamity), class: "btn btn-secondary" if calamity.user == current_user %>
+          <%= link_to 'Show', calamity_path(calamity), class: "btn btn-primary" %>
+          <%= button_to 'Delete', calamity_path(calamity), class: "btn btn-danger ", method: :delete if calamity.user == current_user %></td>
   <% end %>
-  </tr>
   </div>
+  </tr>
 </table>
-</body>
-<%= link_to 'New', new_calamity_path %>
+<%= paginate @calamities %>
+<%= link_to 'New', new_calamity_path(@calamity), class: "btn btn-primary" %>
+<!--</body>-->
