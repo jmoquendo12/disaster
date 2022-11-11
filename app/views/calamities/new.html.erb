@@ -1,3 +1,4 @@
+<%= current_user.email %>
 <header style="float: left"><%= link_to "Home Page", calamities_path, class:"btn btn-secondary" %></header>
 <h1>New Post</h1>
 <% if @calamity.errors.any? %>
@@ -23,8 +24,13 @@
       <%= form.text_field :content %>
     </div>
     <div>
+      <%= form.label :unique_id %>
+      <%= form.text_field :unique_id, value: @rand %>
+    </div>
+    <div>
       <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
     </div>
+
     <div class="btn-light">
       <%= form.submit 'Save', class:"btn btn-primary"%>
     </div>

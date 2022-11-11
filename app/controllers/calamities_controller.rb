@@ -21,7 +21,13 @@ class CalamitiesController < ApplicationController
 
   def create
     @calamity = Calamity.new(params[:calamity].permit(:title, :content, :address, category_ids: []))
+    @calamity = Calamity.new(params[:calamity].permit(:title, :content, :address, :unique_id, category_ids: []))
     @calamity.user = current_user
+    if Rails.env.development?
+      @calamity.ip_address = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
+    else
+      @calamity.ip_address = request.remote_ip
+    end
     if @calamity.save
       redirect_to calamities_path
     else
