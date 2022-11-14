@@ -35,6 +35,7 @@ gem "geocoder"
 gem "discard"
 gem "friendly_id"
 gem "rest-client"
+gem "active_model_serializers"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
