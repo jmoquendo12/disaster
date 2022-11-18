@@ -1,5 +1,5 @@
 <%= current_user.email %>
-<header style="float: left"><%= link_to "Home Page", calamities_path, class:"btn btn-secondary" %></header>
+<header style="float: left"><%= link_to "Home Page", calamities_path, class: "btn btn-secondary" %></header>
 
 <h1>New Post</h1>
 <% if @calamity.errors.any? %>
@@ -16,10 +16,10 @@
       <%= form.text_field :title %>
     </div>
 
-<!--    <div class="form">-->
-      <%#= form.label :address %>
-      <%#= form.text_field :address %>
-<!--    </div>-->
+    <!--    <div class="form">-->
+    <%#= form.label :address %>
+    <%#= form.text_field :address %>
+    <!--    </div>-->
 
     <div class="form">
       <%= form.label :content %>
@@ -39,27 +39,32 @@
       <%= form.label :address_region_id %>
       <%= form.collection_select :address_region_id,
                                  Address::Region.all, :id, :name,
-                                 { prompt: 'Please select region' },
+                                 { prompt: 'PLEASE SELECT REGION' },
                                  data: { location_target: 'selectedRegionId', action: 'change->location#fetchProvinces' } %>
     </div>
 
     <div>
       <%= form.label :address_province_id %>
-      <%= form.collection_select :address_province_id, [], nil, nil, { prompt: 'Please select province' }, data: { location_target: 'selectProvinceId' } %>
+      <%= form.collection_select :address_province_id, [], nil, nil, { prompt: 'PLEASE SELECT PROVINCE' }, data: { location_target: 'selectProvinceId', action: 'change->location#fetchCitiesMunicipalities' } %>
     </div>
 
     <div>
-      <%= form.label :address_municipality_id %>
-      <%= form.collection_select :address_municipality_id, [], nil, nil, { prompt: 'Please select province' }, data: { location_target: 'selectProvinceId' } %>
+      <%= form.label :address_city_municipality_id %>
+      <%= form.collection_select :address_city_municipality_id, [], nil, nil, { prompt: 'PLEASE SELECT MUNICIPALITY' }, data: { location_target: 'selectCityMunicipalityId' } %>
+    </div>
+
+    <div>
+      <%= form.label :address_city_municipality_id %>
+      <%= form.collection_select :address_city_municipality_id, [], nil, nil, { prompt: 'PLEASE SELECT MUNICIPALITY' }, data: { location_target: 'selectCityMunicipalityId' } %>
     </div>
 
     <div>
       <%= form.file_field :image %>
     </div>
     <div class="btn-light">
-      <%= form.submit 'Save', class:"btn btn-primary"%>
+      <%= form.submit 'Save', class: "btn btn-primary" %>
     </div>
-    <%= link_to "Add Categories", categories_path, class:"btn btn-primary" %>
+    <%= link_to "Add Categories", categories_path, class: "btn btn-primary" %>
 
 
 <% end %>
